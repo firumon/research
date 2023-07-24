@@ -5,10 +5,19 @@
   </q-page>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'IndexPage'
+<script setup>
+/*
+import { firestore,collection,getDocs } from 'boot/firebase'
+const collRef = collection(firestore,'history_calendar/orders/bookings')
+import { useCollection } from 'vuefire'
+const bookings = useCollection(collRef)
+bookings.value.forEach(booking => console.log(booking.name))
+*/
+/*
+getDocs(collRef).then(docsSnap => {
+  docsSnap.forEach(docSnap => {
+    console.log(docSnap.id,docSnap.data())
+  })
 })
+*/
 </script>
