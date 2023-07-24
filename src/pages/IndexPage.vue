@@ -1,11 +1,7 @@
 <template>
   <q-page class="flex flex-center column">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    >
-    HAAAAI
+    <img alt="Quasar logo" src="~assets/quasar-logo-vertical.svg" style="width: 200px; height: 200px" class="q-mb-md">
+    HAAAAIWAAAAAAA
   </q-page>
 </template>
 

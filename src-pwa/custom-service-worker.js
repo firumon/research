@@ -32,4 +32,4 @@ if (process.env.MODE !== 'ssr' || process.env.PROD) {
 let ab = 1;
 setInterval(() => {
   console.log(ab++)
-},2500)
+},10000)
