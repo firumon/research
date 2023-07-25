@@ -49,14 +49,10 @@ addEventListener('message',ev => {
 })
 
 function showNotification() {
-  Notification.requestPermission().then((result) => {
-    if (result === "granted") {
-      self.registration.showNotification("Vibration Sample", {
-        body: "Buzz! Buzz!",
-        icon: "https://wearos.google.com/static/images/fav/android-chrome-192x192.png",
-        vibrate: [200, 100, 200, 100, 200, 100, 200],
-        tag: "vibration-sample",
-      })
-    }
-  });
+  self.registration.showNotification("Vibration Sample", {
+    body: "Buzz! Buzz!",
+    icon: "https://wearos.google.com/static/images/fav/android-chrome-192x192.png",
+    vibrate: [200, 100, 200, 100, 200, 100, 200],
+    tag: "vibration-sample",
+  })
 }
