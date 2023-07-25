@@ -31,11 +31,7 @@ if (process.env.MODE !== 'ssr' || process.env.PROD) {
 
 let ab = 1;
 import { firestore,collection } from 'boot/firebase'
-const collRef = collection(firestore,'history_calendar/orders/bookings')
+const collRef = collection(firestore,'updates')
 import { useCollection } from 'vuefire'
-const bookings = useCollection(collRef)
-setInterval(() => {
-  console.clear();
-  console.log(ab++);
-  bookings.value.forEach(booking => console.log(booking))
-},10000)
+const updates = useCollection(collRef)
+console.log(updates.value)
