@@ -36,6 +36,7 @@ let Client = null;
 onSnapshot(qry,qSnaps => {
   qSnaps.docChanges().forEach(change => {
     console.log(change.type,change.doc.id)
+    showNotification();
     if(Client) Client.postMessage({ type:change.type,id:change.doc.id })
     console.log("Client",Client)
   })
@@ -46,3 +47,16 @@ addEventListener('message',ev => {
   if(!Client) Client = ev.source;
   console.log("Client",Client)
 })
+
+function showNotification() {
+  Notification.requestPermission().then((result) => {
+    if (result === "granted") {
+      self.registration.showNotification("Vibration Sample", {
+        body: "Buzz! Buzz!",
+        icon: "https://wearos.google.com/static/images/fav/android-chrome-192x192.png",
+        vibrate: [200, 100, 200, 100, 200, 100, 200],
+        tag: "vibration-sample",
+      })
+    }
+  });
+}
