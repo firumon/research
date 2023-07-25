@@ -37,10 +37,12 @@ onSnapshot(qry,qSnaps => {
   qSnaps.docChanges().forEach(change => {
     console.log(change.type,change.doc.id)
     if(Client) Client.postMessage({ type:change.type,id:change.doc.id })
+    console.log("Client",Client)
   })
 })
 
 addEventListener('message',ev => {
   console.log('SW Received Message',{ ev,data:ev.data })
   if(!Client) Client = ev.source;
+  console.log("Client",Client)
 })
