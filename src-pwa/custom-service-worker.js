@@ -35,10 +35,10 @@ const qry = query(collRef)
 onSnapshot(qry,qSnaps => {
   qSnaps.docChanges().forEach(change => {
     console.log(change.type,change.doc.id)
-    self.postMessage({ type:change.type,id:change.doc.id })
+    postMessage({ type:change.type,id:change.doc.id })
   })
 })
 
-self.addEventListener('message',ev => {
+addEventListener('message',ev => {
   console.log('SW Received Message',{ ev,data:ev.data })
 })

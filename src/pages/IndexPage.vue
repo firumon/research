@@ -27,11 +27,17 @@ const updates = useCollection(collRef)
 const updateStore = useUpdateStore();
 const changes = computed(() => updateStore.changes)
 
-navigator.serviceWorker.addEventListener('message',evt => {
-  console.log('Main App Received Message',{ evt,data:evt.data })
+navigator.serviceWorker.ready.then((registration) => {
+  registration.active.addEventListener('message',evt => {
+    console.log('Main App Received Message',{ evt,data:evt.data })
+  })
 })
 
 function sSwrMsg(){
-  navigator.serviceWorker ?. controller ?. postMessage({ type:'HAHA',data:Math.random() })
+  navigator.serviceWorker.ready.then((registration) => {
+    registration.active.postMessage(
+      "Test message sent immediately after creation",
+    );
+  });
 }
 </script>
