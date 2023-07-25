@@ -38,17 +38,19 @@ onSnapshot(qry,qSnaps => {
     console.log(change.type,change.doc.id)
     showNotification();
     if(Client) Client.postMessage({ type:change.type,id:change.doc.id })
-    console.log("Client",Client)
+    console.log("Client: ",Client)
   })
 })
 
 addEventListener('message',ev => {
   console.log('SW Received Message',{ ev,data:ev.data })
   if(ev.data && ev.data.type === 'SetClient') Client = ev.source;
-  console.log("Client",ev.source,ev.ports[0].postMessage({ type:'reply',data:'Haiwa' }))
+  console.log("Source: ",ev.source)
+  console.log("Client: ",Client)
 })
 
 function showNotification() {
+  console.log('showNotification',self.registration)
   self.registration.showNotification("Vibration Sample", {
     body: "Buzz! Buzz!",
     icon: "https://wearos.google.com/static/images/fav/android-chrome-192x192.png",
