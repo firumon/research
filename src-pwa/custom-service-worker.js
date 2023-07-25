@@ -34,5 +34,9 @@ import { firestore,collection,onSnapshot,query } from 'boot/firebase'
 const collRef = collection(firestore,'updates')
 const qry = query(collRef)
 onSnapshot(qry,qSnaps => {
-  qSnaps.forEach(qSnap => console.log(qSnap.id,qSnap.data()))
+  qSnaps.docChanges().forEach(change => {
+    if(change.type === 'added') console.log('Added: ',change.doc.data())
+    if(change.type === 'modified') console.log('Modified: ',change.doc.data())
+    if(change.type === 'removed') console.log('Removed: ',change.doc.data())
+  })
 })
