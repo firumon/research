@@ -32,13 +32,15 @@ if (process.env.MODE !== 'ssr' || process.env.PROD) {
 import { firestore,collection,onSnapshot,query } from 'boot/firebase'
 const collRef = collection(firestore,'updates')
 const qry = query(collRef)
+let Client = null;
 onSnapshot(qry,qSnaps => {
   qSnaps.docChanges().forEach(change => {
     console.log(change.type,change.doc.id)
-    postMessage({ type:change.type,id:change.doc.id })
+    if(Client) Client.postMessage({ type:change.type,id:change.doc.id })
   })
 })
 
 addEventListener('message',ev => {
   console.log('SW Received Message',{ ev,data:ev.data })
+  if(!Client) Client = ev.source;
 })
