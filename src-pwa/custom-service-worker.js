@@ -33,10 +33,19 @@ import { firestore,collection,onSnapshot,query } from 'boot/firebase'
 import {useUpdateStore} from "stores/updates";
 const collRef = collection(firestore,'updates')
 const qry = query(collRef)
-// const updateStore = useUpdateStore()
-onSnapshot(qry,qSnaps => {
-  qSnaps.docChanges().forEach(change => {
-    console.log(change.type,change.doc.id/*,updateStore.changes*/)
-    // updateStore.changes[change.doc.id] = change.type
-  })
-})
+let updateStore= null;
+function KyoKyo(){
+  console.log('Me KyoKyo')
+  try {
+    const updateStore = useUpdateStore();
+    onSnapshot(qry,qSnaps => {
+      qSnaps.docChanges().forEach(change => {
+        console.log(change.type,change.doc.id,updateStore.changes)
+        updateStore.changes[change.doc.id] = change.type
+      })
+    })
+
+  } catch (e) {
+    setTimeout(KyoKyo,2500)
+  }
+}
