@@ -29,7 +29,6 @@ if (process.env.MODE !== 'ssr' || process.env.PROD) {
   )
 }
 
-let ab = 1;
 import { firestore,collection,onSnapshot,query } from 'boot/firebase'
 import {useUpdateStore} from "stores/updates";
 const collRef = collection(firestore,'updates')
@@ -37,6 +36,7 @@ const qry = query(collRef)
 const updateStore = useUpdateStore()
 onSnapshot(qry,qSnaps => {
   qSnaps.docChanges().forEach(change => {
-    updateStore.changes[change.doc.id] = change.type
+    console.log(change.type,change.doc.id,updateStore.changes)
+    // updateStore.changes[change.doc.id] = change.type
   })
 })
