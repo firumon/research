@@ -13,11 +13,12 @@
         </q-item-section>
       </q-item>
     </q-list>
+    <q-btn @click="sSwrMsg" label="Send Message" color="primary" />
   </q-page>
 </template>
 
 <script setup>
-import { firestore,collection,getDocs } from 'boot/firebase'
+import { firestore,collection } from 'boot/firebase'
 const collRef = collection(firestore,'updates')
 import { useCollection } from 'vuefire'
 import {useUpdateStore} from "stores/updates";
@@ -25,4 +26,12 @@ import {computed} from "vue";
 const updates = useCollection(collRef)
 const updateStore = useUpdateStore();
 const changes = computed(() => updateStore.changes)
+
+navigator.serviceWorker.addEventListener('message',evt => {
+  console.log('Main App Received Message',{ evt,data:evt.data })
+})
+
+function sSwrMsg(){
+  navigator.serviceWorker ?. controller ?. postMessage({ type:'HAHA',data:Math.random() })
+}
 </script>

@@ -30,23 +30,15 @@ if (process.env.MODE !== 'ssr' || process.env.PROD) {
 }
 
 import { firestore,collection,onSnapshot,query } from 'boot/firebase'
-import {useUpdateStore} from "stores/updates";
 const collRef = collection(firestore,'updates')
 const qry = query(collRef)
-let updateStore= null;
-function KyoKyo(){
-  console.log('Me KyoKyo')
-  try {
-    const updateStore = useUpdateStore();
-    onSnapshot(qry,qSnaps => {
-      qSnaps.docChanges().forEach(change => {
-        console.log(change.type,change.doc.id,updateStore.changes)
-        updateStore.changes[change.doc.id] = change.type
-      })
-    })
+onSnapshot(qry,qSnaps => {
+  qSnaps.docChanges().forEach(change => {
+    console.log(change.type,change.doc.id)
+    self.postMessage({ type:change.type,id:change.doc.id })
+  })
+})
 
-  } catch (e) {
-    setTimeout(KyoKyo,2500)
-  }
-}
-KyoKyo();
+self.addEventListener('message',ev => {
+  console.log('SW Received Message',{ ev,data:ev.data })
+})
