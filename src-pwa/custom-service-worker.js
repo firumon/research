@@ -30,8 +30,9 @@ if (process.env.MODE !== 'ssr' || process.env.PROD) {
 }
 
 let ab = 1;
-import { firestore,collection } from 'boot/firebase'
+import { firestore,collection,onSnapshot,query } from 'boot/firebase'
 const collRef = collection(firestore,'updates')
-import { useCollection } from 'vuefire'
-const updates = useCollection(collRef)
-console.log(updates.value)
+const qry = query(collRef)
+onSnapshot(qry,qSnaps => {
+  qSnaps.forEach(qSnap => console.log(qSnap.id,qSnap.data()))
+})
