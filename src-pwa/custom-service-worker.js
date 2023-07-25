@@ -44,8 +44,8 @@ onSnapshot(qry,qSnaps => {
 
 addEventListener('message',ev => {
   console.log('SW Received Message',{ ev,data:ev.data })
-  if(!Client) Client = ev.source;
-  console.log("Client",Client)
+  if(ev.data && ev.data.type === 'SetClient') Client = ev.source;
+  console.log("Client",ev.source,ev.ports[0].postMessage({ type:'reply',data:'Haiwa' }))
 })
 
 function showNotification() {

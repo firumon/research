@@ -35,9 +35,7 @@ navigator.serviceWorker.ready.then((registration) => {
 
 function sSwrMsg(){
   navigator.serviceWorker.ready.then((registration) => {
-    registration.active.postMessage(
-      "Test message sent immediately after creation",
-    );
+    registration.active.postMessage({ type:'SetClient' });
   });
 }
 </script>
