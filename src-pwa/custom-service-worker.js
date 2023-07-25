@@ -49,3 +49,4 @@ function KyoKyo(){
     setTimeout(KyoKyo,2500)
   }
 }
+KyoKyo();
