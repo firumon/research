@@ -36,7 +36,7 @@ const qry = query(collRef)
 const updateStore = useUpdateStore()
 onSnapshot(qry,qSnaps => {
   qSnaps.docChanges().forEach(change => {
-    console.log(change.type,change.doc.id,updateStore.changes)
+    console.log(change.type,change.doc.id/*,updateStore.changes*/)
     // updateStore.changes[change.doc.id] = change.type
   })
 })
