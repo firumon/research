@@ -33,7 +33,7 @@ import { firestore,collection,onSnapshot,query } from 'boot/firebase'
 import {useUpdateStore} from "stores/updates";
 const collRef = collection(firestore,'updates')
 const qry = query(collRef)
-const updateStore = useUpdateStore()
+// const updateStore = useUpdateStore()
 onSnapshot(qry,qSnaps => {
   qSnaps.docChanges().forEach(change => {
     console.log(change.type,change.doc.id/*,updateStore.changes*/)
