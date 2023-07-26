@@ -28,6 +28,6 @@ const changes = computed(() => updateStore.changes)
 
 navigator.serviceWorker.addEventListener('message',evt => {
   console.log('Main App Received Message (native)',{ evt,data:evt.data })
-  if(evt.data.type === 'qsnpsht') updateStore.changes[evt.data.id] = evt.data.change
+  if(evt.data.type === 'qsnpsht') updateStore.changes = Object.assign({},updateStore.changes,{[evt.data.id]:evt.data.change})
 })
 </script>
