@@ -28,11 +28,14 @@ const updateStore = useUpdateStore();
 const changes = computed(() => updateStore.changes)
 
 navigator.serviceWorker.ready.then((registration) => {
+  console.log('SW Ready');
   registration.active.addEventListener('message',evt => {
-    console.log('Main App Received Message',{ evt,data:evt.data })
+    console.log('Main App Received Message (ready)',{ evt,data:evt.data })
   })
 })
-
+navigator.serviceWorker.addEventListener('message',evt => {
+  console.log('Main App Received Message (native)',{ evt,data:evt.data })
+})
 function sSwrMsg(){
   navigator.serviceWorker.ready.then((registration) => {
     registration.active.postMessage({ type:'SetClient' });

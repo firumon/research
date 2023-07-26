@@ -1,0 +1,1 @@
+import{b as r}from"./index.f04143df.js";import{f as a}from"./firebase.2bc01cc1.js";import{V as o,a as s}from"./index.bb504730.js";var t=r(async({app:e})=>{e.use(o,{firebaseApp:a,modules:[s()]})});export{t as default};
