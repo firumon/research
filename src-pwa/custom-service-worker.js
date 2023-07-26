@@ -38,15 +38,12 @@ onSnapshot(qry,qSnaps => {
     console.log(change.type,change.doc.id)
     showNotification();
     if(Client) Client.postMessage({ type:'qsnpsht',id:change.doc.id,change:change.type })
-    console.log("Client: ",Client)
   })
 })
 
 addEventListener('message',ev => {
-  console.log('SW Received Message',{ ev,data:ev.data })
+  console.log('SW Received Message',{ data:ev.data })
   if(ev.data && ev.data.type === 'SetClient') Client = ev.source;
-  console.log("Source: ",ev.source)
-  console.log("Client: ",Client)
 })
 
 function showNotification() {

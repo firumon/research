@@ -18,7 +18,7 @@ register(process.env.SERVICE_WORKER_FILE, {
       vibrate: [200, 100, 200, 100, 200, 100, 200],
       tag: "sw-r-r",
     })
-    self.postMessage({ type:'sw reg ready pm',data:{ time:new Date().getTime() } })
+    self.postMessage({ type:'sw reg ready pm',time:new Date().getTime() })
     console.log('sw ready after PM')
   },
 

@@ -4,4 +4,5 @@ import { boot } from 'quasar/wrappers'
 // more info on params: https://v2.quasar.dev/quasar-cli/boot-files
 export default boot(async (/* { app, router, ... } */) => {
   Notification.requestPermission().then(permission => console.log('Notification permission ' + permission))
+  navigator.serviceWorker.ready.then(reg => navigator.serviceWorker.controller.postMessage({ type:'SetClient',from:'boot/notification' }))
 })
