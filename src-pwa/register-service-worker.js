@@ -19,6 +19,7 @@ register(process.env.SERVICE_WORKER_FILE, {
       tag: "vibration-sample",
     })
     self.postMessage({ type:'sw ready pm',data:{ time:new Date().getTime() } })
+    console.log('sw ready after PM')
   },
 
   registered (/* registration */) {

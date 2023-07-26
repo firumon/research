@@ -59,6 +59,3 @@ function showNotification() {
   })
 }
 
-setInterval(sw => {
-  sw.postMessage({ type:'pm from sw',data:{ time:Math.random() } })
-},3000,self)
