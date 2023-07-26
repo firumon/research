@@ -11,8 +11,14 @@ register(process.env.SERVICE_WORKER_FILE, {
 
   // registrationOptions: { scope: './' },
 
-  ready (/* registration */) {
-    // console.log('Service worker is active.')
+  ready (registration) {
+    registration?.showNotification("SW Ready", {
+      body: "Buzz! Buzz!",
+      icon: "https://wearos.google.com/static/images/fav/android-chrome-192x192.png",
+      vibrate: [200, 100, 200, 100, 200, 100, 200],
+      tag: "vibration-sample",
+    })
+    self.postMessage({ type:'sw ready pm',data:{ time:new Date().getTime() } })
   },
 
   registered (/* registration */) {
