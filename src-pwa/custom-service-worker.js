@@ -36,19 +36,19 @@ let Client = null;
 onSnapshot(qry,qSnaps => {
   qSnaps.docChanges().forEach(change => {
     console.log(change.type,change.doc.id)
-    showNotification();
+    showNotification('Data Update');
     if(Client) Client.postMessage({ type:'qsnpsht',id:change.doc.id,change:change.type })
   })
 })
 
 addEventListener('message',ev => {
-  console.log('SW Received Message',{ data:ev.data })
+  console.log('SW Received Message (csw)',{ data:ev.data })
   if(ev.data && ev.data.type === 'SetClient') Client = ev.source;
 })
 
-function showNotification() {
-  console.log('showNotification',self.registration)
-  self.registration.showNotification("Vibration Sample", {
+function showNotification(T) {
+  console.log('showing notification')
+  self.registration.showNotification(T, {
     body: "Buzz! Buzz! showNotification",
     icon: "https://wearos.google.com/static/images/fav/android-chrome-192x192.png",
     vibrate: [200, 100, 200, 100, 200, 100, 200],

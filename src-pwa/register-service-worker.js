@@ -18,8 +18,8 @@ register(process.env.SERVICE_WORKER_FILE, {
       vibrate: [200, 100, 200, 100, 200, 100, 200],
       tag: "sw-r-r",
     })
+    self.addEventListener('message',evt => console.log('sw received msg (reg ready), ',evt.data))
     self.postMessage({ type:'sw reg ready pm',time:new Date().getTime() })
-    console.log('sw ready after PM')
   },
 
   registered (/* registration */) {
