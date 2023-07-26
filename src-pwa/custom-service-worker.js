@@ -37,7 +37,7 @@ onSnapshot(qry,qSnaps => {
   qSnaps.docChanges().forEach(change => {
     console.log(change.type,change.doc.id)
     showNotification();
-    if(Client) Client.postMessage({ type:change.type,id:change.doc.id })
+    if(Client) Client.postMessage({ type:'qsnpsht',id:change.doc.id,change:change.type })
     console.log("Client: ",Client)
   })
 })
@@ -52,10 +52,10 @@ addEventListener('message',ev => {
 function showNotification() {
   console.log('showNotification',self.registration)
   self.registration.showNotification("Vibration Sample", {
-    body: "Buzz! Buzz!",
+    body: "Buzz! Buzz! showNotification",
     icon: "https://wearos.google.com/static/images/fav/android-chrome-192x192.png",
     vibrate: [200, 100, 200, 100, 200, 100, 200],
-    tag: "vibration-sample",
+    tag: "sh-not",
   })
 }
 

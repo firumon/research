@@ -12,13 +12,13 @@ register(process.env.SERVICE_WORKER_FILE, {
   // registrationOptions: { scope: './' },
 
   ready (registration) {
-    registration?.showNotification("SW Ready", {
-      body: "Buzz! Buzz!",
+    registration?.showNotification("SW Reg Ready", {
+      body: "Buzz! Buzz! SW REG READY",
       icon: "https://wearos.google.com/static/images/fav/android-chrome-192x192.png",
       vibrate: [200, 100, 200, 100, 200, 100, 200],
-      tag: "vibration-sample",
+      tag: "sw-r-r",
     })
-    self.postMessage({ type:'sw ready pm',data:{ time:new Date().getTime() } })
+    self.postMessage({ type:'sw reg ready pm',data:{ time:new Date().getTime() } })
     console.log('sw ready after PM')
   },
 
