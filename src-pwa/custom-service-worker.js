@@ -34,6 +34,7 @@ const collRef = collection(firestore,'updates')
 const qry = query(collRef)
 let Client = null;
 
+/*
 onSnapshot(qry,qSnaps => {
   qSnaps.docChanges().forEach(change => {
     console.log(change.type,change.doc.id)
@@ -46,6 +47,7 @@ addEventListener('message',ev => {
   console.log('SW Received Message (csw)',{ data:ev.data })
   if(ev.data && ev.data.type === 'SetClient') Client = ev.source;
 })
+*/
 
 function showNotification(T) {
   console.log('showing notification')
