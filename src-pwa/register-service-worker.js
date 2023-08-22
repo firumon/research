@@ -1,9 +1,10 @@
 import { register } from 'register-service-worker'
+import {collection, doc, firestore, getToken, messaging, setDoc} from "boot/firebase";
 
 // The ready(), registered(), cached(), updatefound() and updated()
 // events passes a ServiceWorkerRegistration instance in their arguments.
 // ServiceWorkerRegistration: https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration
-
+const collRef = collection(firestore,'updates')
 register(process.env.SERVICE_WORKER_FILE, {
   // The registrationOptions object will be passed as the second argument
   // to ServiceWorkerContainer.register()
@@ -12,16 +13,16 @@ register(process.env.SERVICE_WORKER_FILE, {
   // registrationOptions: { scope: './' },
 
   ready (registration) {
-/*
-    registration?.showNotification("SW Reg Ready", {
-      body: "Buzz! Buzz! SW REG READY",
-      icon: "https://wearos.google.com/static/images/fav/android-chrome-192x192.png",
-      vibrate: [200, 100, 200, 100, 200, 100, 200],
-      tag: "sw-r-r",
+    getToken(messaging,{ serviceWorkerRegistration:registration,vapidKey:'BKebiwNapiHH6w2mi5B8m7i0_DfYvVOmaByt7DqlVjy-Abdilhkd6WHb29zfifbdx_yU4uCpaEKzTIcZPVTL8ws' }).then((token) => {
+      console.log({ token })
+      if (token) {
+        console.log('Sending token to Server');
+        let docRef = doc(collRef,'token')
+        setDoc(docRef,{ token }).then(() => console.log('token set on server'))
+      } else {
+        console.log('No registration token available. Request permission to generate one.');
+      }
     })
-    self.addEventListener('message',evt => console.log('sw received msg (reg ready), ',evt.data))
-    self.postMessage({ type:'sw reg ready pm',time:new Date().getTime() })
-*/
   },
 
   registered (/* registration */) {
