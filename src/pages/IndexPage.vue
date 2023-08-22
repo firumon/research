@@ -30,4 +30,14 @@ navigator.serviceWorker.addEventListener('message',evt => {
   console.log('Main App Received Message (native)',{ evt,data:evt.data })
   if(evt.data.type === 'qsnpsht') updateStore.changes = Object.assign({},updateStore.changes,{[evt.data.id]:evt.data.change})
 })
+
+navigator.serviceWorker.ready.then(registration => {
+  registration.pushManager.getSubscription().then(subscription => {
+    if (subscription){
+
+    } else {
+      registration.pushManager.subscribe({ userVisibleOnly:true, applicationServerKey:'BKebiwNapiHH6w2mi5B8m7i0_DfYvVOmaByt7DqlVjy-Abdilhkd6WHb29zfifbdx_yU4uCpaEKzTIcZPVTL8ws' })
+    }
+  })
+})
 </script>

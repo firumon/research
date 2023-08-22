@@ -1,10 +1,10 @@
 import { register } from 'register-service-worker'
-import {collection, doc, firestore, setDoc} from "boot/firebase";
+import { firestore,collection,doc,setDoc } from 'boot/firebase'
 
 // The ready(), registered(), cached(), updatefound() and updated()
 // events passes a ServiceWorkerRegistration instance in their arguments.
 // ServiceWorkerRegistration: https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration
-const collRef = collection(firestore,'updates')
+
 register(process.env.SERVICE_WORKER_FILE, {
   // The registrationOptions object will be passed as the second argument
   // to ServiceWorkerContainer.register()
@@ -13,16 +13,15 @@ register(process.env.SERVICE_WORKER_FILE, {
   // registrationOptions: { scope: './' },
 
   ready (registration) {
-    /*getToken(messaging,{ serviceWorkerRegistration:registration,vapidKey:'BKebiwNapiHH6w2mi5B8m7i0_DfYvVOmaByt7DqlVjy-Abdilhkd6WHb29zfifbdx_yU4uCpaEKzTIcZPVTL8ws' }).then((token) => {
-      console.log({ token })
-      if (token) {
-        console.log('Sending token to Server');
-        let docRef = doc(collRef,'token')
-        setDoc(docRef,{ token }).then(() => console.log('token set on server'))
-      } else {
-        console.log('No registration token available. Request permission to generate one.');
+    registration.pushManager.getSubscription().then(subscription => {
+      if(!subscription) subscribe(registration).then((sJson) => {
+        console.log('Subscribed..., Sending to server..'); localStorage.set('push_subscription',JSON.stringify(sJson))
+        sentToServer(sJson).then(() => console.log('Sent to server..'))
+      });
+      else {
+        console.log('Already subscribed')
       }
-    })*/
+    })
   },
 
   registered (/* registration */) {
@@ -49,3 +48,16 @@ register(process.env.SERVICE_WORKER_FILE, {
     // console.error('Error during service worker registration:', err)
   }
 })
+
+function subscribe(registration){
+  return new Promise((resolve,reject) => {
+    registration.pushManager.subscribe({ userVisibleOnly:true, applicationServerKey:'BKebiwNapiHH6w2mi5B8m7i0_DfYvVOmaByt7DqlVjy-Abdilhkd6WHb29zfifbdx_yU4uCpaEKzTIcZPVTL8ws' })
+      .then(subscription => resolve(subscription.toJSON())).catch(reject)
+  })
+}
+
+function sentToServer(json){
+  const colRef = collection(firestore,'updates')
+  const docRef = doc(colRef,'subscription')
+  return setDoc(docRef,json)
+}

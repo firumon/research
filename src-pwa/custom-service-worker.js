@@ -60,3 +60,12 @@ function showNotification(T) {
 }
 
 setTimeout(showNotification,2000,'I am Ready, from SW setTimeout')
+
+addEventListener('push',event => {
+  console.log('push listener',{ event })
+  let notification = event.data.json()
+  showNotification(notification.title)
+})
+addEventListener('message',event => {
+  console.log('message listener',{ event })
+})
