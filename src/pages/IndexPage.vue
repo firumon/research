@@ -47,5 +47,14 @@ navigator.serviceWorker.ready.then(registration => {
 function storeSubscription(sub){
   let data = JSON.parse(JSON.stringify(sub));
   console.log(data);
+  doListen()
+}
+function doListen(){
+  navigator.serviceWorker.addEventListener('push',e => {
+    console.log('push listener',e)
+  })
+  navigator.serviceWorker.addEventListener('message',e => {
+    console.log('message listener',e)
+  })
 }
 </script>
