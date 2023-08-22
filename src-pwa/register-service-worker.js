@@ -12,6 +12,7 @@ register(process.env.SERVICE_WORKER_FILE, {
   // registrationOptions: { scope: './' },
 
   ready (registration) {
+/*
     registration?.showNotification("SW Reg Ready", {
       body: "Buzz! Buzz! SW REG READY",
       icon: "https://wearos.google.com/static/images/fav/android-chrome-192x192.png",
@@ -20,6 +21,7 @@ register(process.env.SERVICE_WORKER_FILE, {
     })
     self.addEventListener('message',evt => console.log('sw received msg (reg ready), ',evt.data))
     self.postMessage({ type:'sw reg ready pm',time:new Date().getTime() })
+*/
   },
 
   registered (/* registration */) {

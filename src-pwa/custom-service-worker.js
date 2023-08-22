@@ -29,10 +29,11 @@ if (process.env.MODE !== 'ssr' || process.env.PROD) {
   )
 }
 
-import { firestore,collection,onSnapshot,query } from 'boot/firebase'
+import { firestore,collection,onSnapshot,query,messaging,getToken,setDoc,doc } from 'boot/firebase'
 const collRef = collection(firestore,'updates')
 const qry = query(collRef)
 let Client = null;
+
 onSnapshot(qry,qSnaps => {
   qSnaps.docChanges().forEach(change => {
     console.log(change.type,change.doc.id)
@@ -56,3 +57,13 @@ function showNotification(T) {
   })
 }
 
+getToken(messaging,{ serviceWorkerRegistration:self.registration,vapidKey:'BKebiwNapiHH6w2mi5B8m7i0_DfYvVOmaByt7DqlVjy-Abdilhkd6WHb29zfifbdx_yU4uCpaEKzTIcZPVTL8ws' }).then((token) => {
+  console.log({ token })
+  if (token) {
+    console.log('Sending token to Server');
+    let docRef = doc(collRef,'token')
+    setDoc(docRef,{ token }).then(() => console.log('token set on server'))
+  } else {
+    console.log('No registration token available. Request permission to generate one.');
+  }
+})
