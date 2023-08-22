@@ -1,5 +1,5 @@
 import { register } from 'register-service-worker'
-import {collection, doc, firestore, getToken, messaging, setDoc} from "boot/firebase";
+import {collection, doc, firestore, setDoc} from "boot/firebase";
 
 // The ready(), registered(), cached(), updatefound() and updated()
 // events passes a ServiceWorkerRegistration instance in their arguments.
