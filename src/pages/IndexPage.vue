@@ -45,7 +45,7 @@ navigator.serviceWorker.ready.then(registration => {
 })
 
 function storeSubscription(sub){
-  let data = sub.toJSON();
+  let data = JSON.parse(JSON.stringify(sub));
   console.log(data);
 }
 </script>
