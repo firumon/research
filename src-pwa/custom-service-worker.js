@@ -58,3 +58,5 @@ function showNotification(T) {
     tag: "sh-not",
   })
 }
+
+setTimeout(showNotification,2000,'I am Ready, from SW setTimeout')

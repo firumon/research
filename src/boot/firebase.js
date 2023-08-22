@@ -30,4 +30,4 @@ export * from "firebase/messaging"
 // export * from "firebase/storage"
 // export * from "firebase/auth"
 
-getToken(messaging).then(token => console.log({ token }))
+
