@@ -34,10 +34,18 @@ navigator.serviceWorker.addEventListener('message',evt => {
 navigator.serviceWorker.ready.then(registration => {
   registration.pushManager.getSubscription().then(subscription => {
     if (subscription){
-
+      storeSubscription(subscription)
     } else {
       registration.pushManager.subscribe({ userVisibleOnly:true, applicationServerKey:'BKebiwNapiHH6w2mi5B8m7i0_DfYvVOmaByt7DqlVjy-Abdilhkd6WHb29zfifbdx_yU4uCpaEKzTIcZPVTL8ws' })
+        .then(subscription => {
+          storeSubscription(subscription)
+        })
     }
   })
 })
+
+function storeSubscription(sub){
+  let data = sub.toJSON();
+  console.log(data);
+}
 </script>

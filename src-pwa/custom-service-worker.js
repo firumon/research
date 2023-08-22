@@ -29,9 +29,9 @@ if (process.env.MODE !== 'ssr' || process.env.PROD) {
   )
 }
 
-import { firestore,collection,onSnapshot,query,setDoc,doc } from 'boot/firebase'
-const collRef = collection(firestore,'updates')
-const qry = query(collRef)
+// import { firestore,collection,onSnapshot,query,setDoc,doc } from 'boot/firebase'
+// const collRef = collection(firestore,'updates')
+// const qry = query(collRef)
 let Client = null;
 
 /*

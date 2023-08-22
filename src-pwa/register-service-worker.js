@@ -16,7 +16,7 @@ register(process.env.SERVICE_WORKER_FILE, {
     registration.pushManager.getSubscription().then(subscription => {
       if(!subscription) subscribe(registration).then((sJson) => {
         console.log('Subscribed..., Sending to server..'); localStorage.set('push_subscription',JSON.stringify(sJson))
-        sentToServer(sJson).then(() => console.log('Sent to server..'))
+        sentToServer(sJson).then(() => console.log('Sent to server..')).catch(e => console.log('Sending failed..',e))
       });
       else {
         console.log('Already subscribed')
