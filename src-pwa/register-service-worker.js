@@ -13,7 +13,7 @@ register(process.env.SERVICE_WORKER_FILE, {
   // registrationOptions: { scope: './' },
 
   ready (registration) {
-    getToken(messaging,{ serviceWorkerRegistration:registration,vapidKey:'BKebiwNapiHH6w2mi5B8m7i0_DfYvVOmaByt7DqlVjy-Abdilhkd6WHb29zfifbdx_yU4uCpaEKzTIcZPVTL8ws' }).then((token) => {
+    /*getToken(messaging,{ serviceWorkerRegistration:registration,vapidKey:'BKebiwNapiHH6w2mi5B8m7i0_DfYvVOmaByt7DqlVjy-Abdilhkd6WHb29zfifbdx_yU4uCpaEKzTIcZPVTL8ws' }).then((token) => {
       console.log({ token })
       if (token) {
         console.log('Sending token to Server');
@@ -22,7 +22,7 @@ register(process.env.SERVICE_WORKER_FILE, {
       } else {
         console.log('No registration token available. Request permission to generate one.');
       }
-    })
+    })*/
   },
 
   registered (/* registration */) {

@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore"
-import { getMessaging } from "firebase/messaging"
 // import { getStorage } from "firebase/storage"
 // import { getAuth } from "firebase/auth"
 // TODO: Add SDKs for Firebase products that you want to use
@@ -21,12 +20,9 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 export default firebaseApp;
 export const firestore = getFirestore(firebaseApp)
-export const messaging = getMessaging(firebaseApp)
 // export const storage = getStorage(firebaseApp)
 // export const auth = getAuth(firebaseApp)
 
 export * from "firebase/firestore"
-export * from "firebase/messaging"
 // export * from "firebase/storage"
 // export * from "firebase/auth"
-
