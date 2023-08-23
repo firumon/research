@@ -3,9 +3,14 @@ import firebaseApp from './firebase'
 
 const messaging = getMessaging(firebaseApp)
 console.log({ messaging })
-getToken(messaging).then(token => {
-  console.log('Messaging Token',{ token })
-}).catch(e => console.log('Get token error',{ e }))
+navigator.serviceWorker.ready.then(serviceWorkerRegistration => {
+  getToken(messaging,{
+    vapidKey:'BKebiwNapiHH6w2mi5B8m7i0_DfYvVOmaByt7DqlVjy-Abdilhkd6WHb29zfifbdx_yU4uCpaEKzTIcZPVTL8ws',
+    serviceWorkerRegistration
+  }).then(token => {
+    console.log('Messaging Token',{ token })
+  }).catch(e => console.log('Get token error',{ e }))
+})
 /*
 navigator.serviceWorker.ready.then(registration => {
   registration.pushManager.getSubscription().then(subscription => {
