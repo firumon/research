@@ -32,7 +32,7 @@ if (process.env.MODE !== 'ssr' || process.env.PROD) {
 // import { firestore,collection,onSnapshot,query,setDoc,doc } from 'boot/firebase'
 // const collRef = collection(firestore,'updates')
 // const qry = query(collRef)
-let Client = null;
+// let Client = null;
 
 /*
 onSnapshot(qry,qSnaps => {
@@ -61,6 +61,7 @@ function showNotification(T) {
 
 setTimeout(showNotification,2000,'I am Ready, from SW setTimeout')
 
+/*
 addEventListener('push',event => {
   console.log('push listener',{ event })
   let notification = event.data.json()
@@ -69,3 +70,16 @@ addEventListener('push',event => {
 addEventListener('message',event => {
   console.log('message listener',{ event })
 })
+*/
+
+import { getToken,onBackgroundMessage,messaging } from "boot/firebase";
+getToken(messaging,{
+  vapidKey:'BKebiwNapiHH6w2mi5B8m7i0_DfYvVOmaByt7DqlVjy-Abdilhkd6WHb29zfifbdx_yU4uCpaEKzTIcZPVTL8ws',
+  serviceWorkerRegistration:self.registration
+}).then(token => {
+  console.log('Messaging Token',{ token })
+  onBackgroundMessage(messaging,payload => {
+    console.log('push msg payload',payload)
+    console.log(payload.data)
+  })
+}).catch(e => console.log('Get token error',{ e }))

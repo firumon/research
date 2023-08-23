@@ -1,8 +1,11 @@
-import { getToken } from 'firebase/messaging'
-import { onBackgroundMessage,getMessaging } from 'firebase/messaging/sw'
+/*
+import { getMessaging } from 'firebase/messaging/sw'
 import firebaseApp from './firebase'
 
-const messaging = getMessaging(firebaseApp)
+export const messaging = getMessaging(firebaseApp)
+*/
+
+/*
 console.log({ messaging })
 navigator.serviceWorker.ready.then(serviceWorkerRegistration => {
   getToken(messaging,{
@@ -16,6 +19,7 @@ navigator.serviceWorker.ready.then(serviceWorkerRegistration => {
     })
   }).catch(e => console.log('Get token error',{ e }))
 })
+*/
 /*
 navigator.serviceWorker.ready.then(registration => {
   registration.pushManager.getSubscription().then(subscription => {
