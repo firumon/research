@@ -1,4 +1,5 @@
-import { getMessaging,getToken,onMessage } from 'firebase/messaging'
+import { getToken } from 'firebase/messaging'
+import { onBackgroundMessage,getMessaging } from 'firebase/messaging/sw'
 import firebaseApp from './firebase'
 
 const messaging = getMessaging(firebaseApp)
@@ -9,8 +10,9 @@ navigator.serviceWorker.ready.then(serviceWorkerRegistration => {
     serviceWorkerRegistration
   }).then(token => {
     console.log('Messaging Token',{ token })
-    onMessage(messaging,payload => {
+    onBackgroundMessage(messaging,payload => {
       console.log('push msg payload',payload)
+      console.log(payload.data)
     })
   }).catch(e => console.log('Get token error',{ e }))
 })
