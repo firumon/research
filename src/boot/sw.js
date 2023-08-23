@@ -1,11 +1,11 @@
-import { boot } from 'quasar/wrappers'
+import { getMessaging,getToken,onMessage } from 'firebase/messaging'
+import firebaseApp from './firebase'
 
-// "async" is optional;
-// more info on params: https://v2.quasar.dev/quasar-cli/boot-files
-export default boot(async (/* { app, router, ... } */) => {
-  // something to do
-})
-
+const messaging = getMessaging(firebaseApp)
+getToken(messaging).then(token => {
+  console.log('Messagin Token',{ token })
+}).catch(console.log)
+/*
 navigator.serviceWorker.ready.then(registration => {
   registration.pushManager.getSubscription().then(subscription => {
     if (subscription){
@@ -31,4 +31,6 @@ function doListen(){
   navigator.serviceWorker.addEventListener('message',e => {
     console.log('message listener',e)
   })
-}
+};
+
+*/
