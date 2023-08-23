@@ -9,6 +9,9 @@ navigator.serviceWorker.ready.then(serviceWorkerRegistration => {
     serviceWorkerRegistration
   }).then(token => {
     console.log('Messaging Token',{ token })
+    onMessage(messaging,payload => {
+      console.log('push msg payload',payload)
+    })
   }).catch(e => console.log('Get token error',{ e }))
 })
 /*
