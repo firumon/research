@@ -13,7 +13,7 @@ register(process.env.SERVICE_WORKER_FILE, {
   // registrationOptions: { scope: './' },
 
   ready (registration) {
-    registration.pushManager.getSubscription().then(subscription => {
+    /*registration.pushManager.getSubscription().then(subscription => {
       if(!subscription) subscribe(registration).then((sJson) => {
         console.log('Subscribed..., Sending to server..'); localStorage.setItem('push_subscription',JSON.stringify(sJson))
         sentToServer(sJson).then(() => console.log('Sent to server..')).catch(e => console.log('Sending failed..',e))
@@ -21,7 +21,7 @@ register(process.env.SERVICE_WORKER_FILE, {
       else {
         console.log('Already subscribed')
       }
-    })
+    })*/
   },
 
   registered (/* registration */) {

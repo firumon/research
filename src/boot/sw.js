@@ -2,9 +2,10 @@ import { getMessaging,getToken,onMessage } from 'firebase/messaging'
 import firebaseApp from './firebase'
 
 const messaging = getMessaging(firebaseApp)
+console.log({ messaging })
 getToken(messaging).then(token => {
-  console.log('Messagin Token',{ token })
-}).catch(console.log)
+  console.log('Messaging Token',{ token })
+}).catch(e => console.log('Get token error',{ e }))
 /*
 navigator.serviceWorker.ready.then(registration => {
   registration.pushManager.getSubscription().then(subscription => {
