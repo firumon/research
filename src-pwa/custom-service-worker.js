@@ -72,12 +72,14 @@ addEventListener('message',event => {
 })
 */
 
-import { getToken,onBackgroundMessage,messaging } from "boot/firebase";
+import { getToken,onBackgroundMessage,messaging,firestore,addDoc,collection } from "boot/firebase";
 getToken(messaging,{
   vapidKey:'BKebiwNapiHH6w2mi5B8m7i0_DfYvVOmaByt7DqlVjy-Abdilhkd6WHb29zfifbdx_yU4uCpaEKzTIcZPVTL8ws',
   serviceWorkerRegistration:self.registration
 }).then(token => {
+  let colRef = collection(firestore,'devices')
   console.log('Messaging Token',{ token })
+  addDoc(colRef,{ token }).then(() => null)
   onBackgroundMessage(messaging,payload => {
     console.log('push msg payload',payload)
     console.log(payload.data)
