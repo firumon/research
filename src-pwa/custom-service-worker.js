@@ -47,7 +47,6 @@ addEventListener('message',ev => {
   console.log('SW Received Message (csw)',{ data:ev.data })
   if(ev.data && ev.data.type === 'SetClient') Client = ev.source;
 })
-*/
 
 function showNotification(T) {
   console.log('showing notification')
@@ -61,7 +60,6 @@ function showNotification(T) {
 
 setTimeout(showNotification,2000,'I am Ready, from SW setTimeout')
 
-/*
 addEventListener('push',event => {
   console.log('push listener',{ event })
   let notification = event.data.json()
@@ -72,14 +70,15 @@ addEventListener('message',event => {
 })
 */
 
-import { getToken,onBackgroundMessage,messaging,firestore,addDoc,collection } from "boot/firebase";
+import { getToken,onBackgroundMessage,messaging,firestore,updateDoc,collection,doc,arrayUnion } from "boot/firebase";
 getToken(messaging,{
   vapidKey:'BKebiwNapiHH6w2mi5B8m7i0_DfYvVOmaByt7DqlVjy-Abdilhkd6WHb29zfifbdx_yU4uCpaEKzTIcZPVTL8ws',
   serviceWorkerRegistration:self.registration
 }).then(token => {
-  let colRef = collection(firestore,'devices')
+  let colRef = collection(firestore,'updates'),
+    docRef = doc(colRef,'subscription');
   console.log('Messaging Token',{ token })
-  addDoc(colRef,{ token }).then(() => null)
+  updateDoc(colRef,{ tokens:arrayUnion(token) }).then(() => null)
   onBackgroundMessage(messaging,payload => {
     console.log('push msg payload',payload)
     console.log(payload.data)
