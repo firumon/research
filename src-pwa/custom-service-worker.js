@@ -78,7 +78,7 @@ getToken(messaging,{
   let colRef = collection(firestore,'updates'),
     docRef = doc(colRef,'subscription');
   console.log('Messaging Token',{ token })
-  updateDoc(colRef,{ tokens:arrayUnion(token) }).then(() => null)
+  updateDoc(docRef,{ tokens:arrayUnion(token) }).then(() => null)
   onBackgroundMessage(messaging,payload => {
     console.log('push msg payload',payload)
     console.log(payload.data)
